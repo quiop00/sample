@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mid_term/components/product_card.dart';
 import 'package:mid_term/components/product_form_dialog.dart';
 import 'package:mid_term/models/product.dart';
+import 'package:mid_term/services/firebase_service.dart';
 
 class ProductListPage extends StatefulWidget {
   const ProductListPage({super.key});
@@ -15,7 +16,7 @@ class _ProductListPageState extends State<ProductListPage> {
     Product(name: 'ao', price: 110.000, category: 'korean'),
   ];
   bool _isLoading = true;
-
+  final firebaseService = FirebaseService();
   @override
   void initState() {
     super.initState();
@@ -28,8 +29,10 @@ class _ProductListPageState extends State<ProductListPage> {
     });
 
     try {
-      setState(() {
-        // _products = products;
+      firebaseService.getProducts().listen((products) {
+        setState(() {
+          _products = products;
+        });
       });
     } catch (e) {
       if (mounted) {}
