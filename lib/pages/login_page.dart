@@ -15,14 +15,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> signIn() async {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print("Người dùng đã đăng xuất!");
-      } else {
-        print("Người dùng đang đăng nhập: ${user.email}");
-      }
-    });
-    await signOut();
     try {
       await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -37,19 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> signOut() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      print("Người dùng đã đăng xuất thành công!");
-    } catch (e) {
-      print("Lỗi khi đăng xuất: $e");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Đăng nhập Firebase")),
+      appBar: AppBar(title: Text("Login")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -60,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: InputDecoration(labelText: "Email"),
               keyboardType: TextInputType.emailAddress,
             ),
+            SizedBox(height: 20),
             TextField(
               controller: passwordController,
               decoration: InputDecoration(labelText: "Mật khẩu"),
