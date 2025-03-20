@@ -65,7 +65,7 @@ class _ProductListPageState extends State<ProductListPage> {
 
     if (result != null) {
       try {
-        firebaseService.addProduct(result);
+        firebaseService.updateProduct(result);
         if (mounted) {}
       } catch (e) {
         if (mounted) {}

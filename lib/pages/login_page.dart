@@ -15,19 +15,34 @@ class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> signIn() async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print("Người dùng đã đăng xuất!");
+      } else {
+        print("Người dùng đang đăng nhập: ${user.email}");
+      }
+    });
+    await signOut();
     try {
       await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
-      ).then((value) {
-        if (value.user != null) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProductListPage()));
-        }
-      });
+      );
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProductListPage()));
     } catch (e) {
+      print(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Lỗi: ${e.toString()}")),
       );
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      print("Người dùng đã đăng xuất thành công!");
+    } catch (e) {
+      print("Lỗi khi đăng xuất: $e");
     }
   }
 

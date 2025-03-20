@@ -17,6 +17,7 @@ dependencies {
   implementation ( "com.google.firebase:firebase-analytics" )
   implementation ( "com.google.firebase:firebase-storage:21.0.1" )
   implementation ( "com.google.firebase:firebase-firestore:25.1.2")
+  implementation ("com.google.firebase:firebase-auth")
 
   // Add the dependencies for any other desired Firebase products
   // https://firebase.google.com/docs/android/setup#available-libraries
@@ -45,6 +46,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        multiDexEnabled = true
     }
 
     buildTypes {
