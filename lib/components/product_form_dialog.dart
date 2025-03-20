@@ -15,7 +15,6 @@ class ProductFormDialog extends StatefulWidget {
 class _ProductFormDialogState extends State<ProductFormDialog> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _brandController = TextEditingController();
   final _priceController = TextEditingController();
   final _categoryController = TextEditingController();
 
@@ -38,7 +37,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
   @override
   void dispose() {
     _nameController.dispose();
-    _brandController.dispose();
     _priceController.dispose();
     _categoryController.dispose();
     super.dispose();

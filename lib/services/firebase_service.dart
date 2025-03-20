@@ -8,14 +8,12 @@ class FirebaseService {
       .collection('products');
 
   // Thêm sản phẩm
-  Future<void> addProduct(String name, double price, String imageUrl) async {
+  Future<void> addProduct(Product product) async {
     try {
-      await productCollection.add({
-        'name': name,
-        'price': price,
-        'imageUrl': imageUrl,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
+      DocumentReference docRef = productCollection.doc(); // Tạo document ID tự động
+      String id = docRef.id;
+      product = product.copyWith(id: id);
+      await docRef.set(product.toJson());
       print("Thêm sản phẩm thành công!");
     } catch (e) {
       print("Lỗi khi thêm sản phẩm: $e");
@@ -42,7 +40,6 @@ class FirebaseService {
   // Lấy danh sách sản phẩm
   Stream<List<Product>> getProducts() {
     return productCollection
-        .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) {
           return snapshot.docs.map((doc) {
@@ -52,18 +49,9 @@ class FirebaseService {
   }
 
   // Cập nhật sản phẩm
-  Future<void> updateProduct(
-    String id,
-    String name,
-    double price,
-    String imageUrl,
-  ) async {
+  Future<void> updateProduct(Product product) async {
     try {
-      await productCollection.doc(id).update({
-        'name': name,
-        'price': price,
-        'imageUrl': imageUrl,
-      });
+      await productCollection.doc(product.id).update(product.toJson());
       print("Cập nhật sản phẩm thành công!");
     } catch (e) {
       print("Lỗi khi cập nhật sản phẩm: $e");

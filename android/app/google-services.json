@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1076427521024",
-    "project_id": "mid-term-ea12b",
-    "storage_bucket": "mid-term-ea12b.firebasestorage.app"
+    "project_number": "1074214840555",
+    "project_id": "sample-b6e26",
+    "storage_bucket": "sample-b6e26.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1076427521024:android:0e50f750a1c41f33b06ce5",
+        "mobilesdk_app_id": "1:1074214840555:android:19ced7ef1949f90e8576ae",
         "android_client_info": {
           "package_name": "com.example.mid_term"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAS4BSwmhPlLTi_fSc6NPhW2_usBE-ZslA"
+          "current_key": "AIzaSyAW0hRTQDJkcj5ibBDoGma4ve9EswW758E"
         }
       ],
       "services": {

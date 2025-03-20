@@ -12,9 +12,7 @@ class ProductListPage extends StatefulWidget {
 }
 
 class _ProductListPageState extends State<ProductListPage> {
-  List<Product> _products = [
-    Product(name: 'ao', price: 110.000, category: 'korean'),
-  ];
+  List<Product> _products = [];
   bool _isLoading = true;
   final firebaseService = FirebaseService();
   @override
@@ -51,7 +49,7 @@ class _ProductListPageState extends State<ProductListPage> {
 
     if (result != null) {
       try {
-        _loadProducts();
+        firebaseService.addProduct(result);
         if (mounted) {}
       } catch (e) {
         if (mounted) {}
@@ -67,7 +65,7 @@ class _ProductListPageState extends State<ProductListPage> {
 
     if (result != null) {
       try {
-        _loadProducts();
+        firebaseService.addProduct(result);
         if (mounted) {}
       } catch (e) {
         if (mounted) {}
@@ -97,10 +95,9 @@ class _ProductListPageState extends State<ProductListPage> {
 
     if (confirm == true) {
       try {
-        _loadProducts();
-        if (mounted) {}
+        firebaseService.deleteProduct(product.id!);
       } catch (e) {
-        if (mounted) {}
+        debugPrint(e.toString());
       }
     }
   }
@@ -108,7 +105,7 @@ class _ProductListPageState extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Data of Shop'), centerTitle: true),
+      appBar: AppBar(title: const Text('Products Management'), centerTitle: true),
       body:
           _isLoading
               ? const Center(child: CircularProgressIndicator())
